@@ -1,28 +1,13 @@
 import React from 'react';
 import { useSpotifyApi } from './spotify';
-
+import { Header } from './Header';
+import { Playlists } from './Playlists';
 const App = () => {
-	const [loggedIn, spotify] = useSpotifyApi();
-	if (spotify) {
-		console.log('we have a spotify!');
-		spotify.getArtistAlbums('43ZHCT0cAZBISjO8DG9PnE').then(
-			function(data) {
-				console.log('Artist albums:', data);
-			},
-			function(err) {
-				console.error(err);
-			}
-		);
-	}
+	const [loggedIn, user, spotify] = useSpotifyApi();
 	return (
 		<div className="app">
-			{loggedIn ? (
-				<div>Logged in!</div>
-			) : (
-				<a href="http://localhost:8888/login">
-					<button>Log In</button>
-				</a>
-			)}
+			<Header loggedIn={loggedIn} user={user} />
+			<Playlists spotify={spotify} />
 		</div>
 	);
 };

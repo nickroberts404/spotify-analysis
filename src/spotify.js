@@ -7,6 +7,7 @@ const cookies = new Cookies();
 export const useSpotifyApi = () => {
 	const [loggedIn, setLoggedIn] = useState(false);
 	const [spotify, setSpotify] = useState(null);
+	const user = useSpotifyUser(spotify);
 	const spotifyApi = new Spotify();
 
 	useEffect(() => {
@@ -28,7 +29,29 @@ export const useSpotifyApi = () => {
 			window.location.hash = ''; // Reset URL hash
 		}
 	}, []);
-	return [loggedIn, spotify];
+	return [loggedIn, user, spotify];
+};
+
+export const useSpotifyUser = (spotify, userId) => {
+	const [user, setUser] = useState({});
+	useEffect(() => {
+		if (spotify && userId) {
+			spotify.getUser(userId).then((data) => setUser(data));
+		} else if (spotify) {
+			spotify.getMe().then((data) => setUser(data));
+		}
+	}, [spotify, userId]);
+	return user;
+};
+
+export const useSpotifyUserPlaylists = (spotify, userId = null) => {
+	const [playlists, setPlaylists] = useState({});
+	useEffect(() => {
+		if (spotify) {
+			spotify.getUserPlaylists(userId).then((data) => setPlaylists(data));
+		}
+	}, [spotify, userId]);
+	return playlists;
 };
 
 const getHashParams = (hash) => {
