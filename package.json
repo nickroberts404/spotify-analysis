@@ -5,7 +5,9 @@
   "dependencies": {
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
-    "react-scripts": "2.1.8"
+    "react-scripts": "2.1.8",
+    "spotify-web-api-js": "^1.2.0",
+    "universal-cookie": "^3.0.7"
   },
   "scripts": {
     "start": "react-scripts start",
