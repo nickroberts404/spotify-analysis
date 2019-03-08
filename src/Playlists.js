@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from '@reach/router';
 import { useSpotifyUserPlaylists } from './spotify';
 
 export const Playlists = ({ spotify }) => {
@@ -7,9 +8,7 @@ export const Playlists = ({ spotify }) => {
 	return (
 		<div className="playlists">
 			{(playlists.items || []).map((p) => (
-				<div className="playlist-name">
-					{p.name}({p.tracks.total})
-				</div>
+				<Link to={`/${p.id}`}>{p.name}</Link>
 			))}
 		</div>
 	);

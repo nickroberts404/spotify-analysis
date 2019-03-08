@@ -54,6 +54,16 @@ export const useSpotifyUserPlaylists = (spotify, userId = null) => {
 	return playlists;
 };
 
+export const useSpotifyPlaylist = (spotify, playlistId) => {
+	const [playlist, setPlaylist] = useState({});
+	useEffect(() => {
+		if (spotify && playlistId) {
+			spotify.getPlaylist(playlistId).then((data) => setPlaylist(data));
+		}
+	}, [spotify, playlistId]);
+	return playlist;
+};
+
 const getHashParams = (hash) => {
 	const hashParams = {};
 	var e,
