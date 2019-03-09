@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useSpotifyPlaylist } from './spotify';
+import { useSpotifyPlaylistWithAnalysis } from './spotify';
 import { PlaylistTable } from './PlaylistTable';
 
 const Container = styled.div`
@@ -9,7 +9,7 @@ const Container = styled.div`
 const Title = styled.h2``;
 
 export const Playlist = ({ spotify, playlistId }) => {
-	const playlist = useSpotifyPlaylist(spotify, playlistId);
+	const playlist = useSpotifyPlaylistWithAnalysis(spotify, playlistId);
 	if (!playlist.name) return false;
 	return (
 		<Container>

@@ -18,6 +18,7 @@ export const useSpotifyApi = () => {
 			setLoggedIn(true);
 			setSpotify(spotifyApi);
 		} else if (params.access_token) {
+			window.location.hash = ''; // Reset URL hash
 			cookies.set('access_token', params.access_token, {
 				path: '/',
 				maxAge: 3600,
@@ -26,7 +27,6 @@ export const useSpotifyApi = () => {
 			spotifyApi.setAccessToken(params.access_token);
 			setLoggedIn(true);
 			setSpotify(spotifyApi);
-			window.location.hash = ''; // Reset URL hash
 		}
 	}, []);
 	return [loggedIn, user, spotify];
@@ -62,6 +62,27 @@ export const useSpotifyPlaylist = (spotify, playlistId) => {
 		}
 	}, [spotify, playlistId]);
 	return playlist;
+};
+
+export const useSpotifyPlaylistWithAnalysis = (spotify, playlistId) => {
+	const playlist = useSpotifyPlaylist(spotify, playlistId);
+	const [improvedPlaylist, setImprovedPlaylist] = useState({});
+	useEffect(() => {
+		if (spotify && playlist.tracks) {
+			const ids = playlist.tracks.items.map((i) => i.track.id);
+			spotify.getAudioFeaturesForTracks(ids).then((data) => {
+				const newTracks = playlist.tracks.items.map((item, i) => ({
+					...item,
+					track: { ...item.track, ...data.audio_features[i] },
+				}));
+				setImprovedPlaylist({
+					...playlist,
+					tracks: { ...playlist.tracks, items: newTracks },
+				});
+			});
+		}
+	}, [spotify, playlist]);
+	return improvedPlaylist;
 };
 
 const getHashParams = (hash) => {

@@ -29,7 +29,6 @@ const isActive = ({ isCurrent }) => {
 };
 export const Playlists = ({ spotify }) => {
 	const playlists = useSpotifyUserPlaylists(spotify);
-	console.log(playlists);
 	return (
 		<Container>
 			{(playlists.items || []).map((p) => (
