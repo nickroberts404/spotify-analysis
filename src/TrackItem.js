@@ -10,7 +10,8 @@ export const TrackItem = ({ track }) => {
 			<Duration>{msToTime(track.duration_ms)}</Duration>
 			<BPM>{Math.round(track.tempo)}</BPM>
 			<Key>
-				{pitchClass[track.key]} ({track.mode})
+				{pitchClass[track.key]}
+				{scale[track.mode]}
 			</Key>
 		</Row>
 	);
@@ -32,6 +33,8 @@ const msToTime = (ms) => {
 	const seconds = parseInt(60 * (minutes % 1));
 	return parseInt(minutes) + ':' + (seconds < 10 ? '0' : '') + seconds;
 };
+
+const scale = ['m', ''];
 
 const pitchClass = [
 	'C',

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useSpotifyPlaylistWithAnalysis } from './spotify';
-import { PlaylistTable } from './PlaylistTable';
+import { PlaylistTable } from './tablePlaylist';
 
 const Container = styled.div`
 	margin: 1rem;
