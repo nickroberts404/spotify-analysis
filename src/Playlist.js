@@ -1,19 +1,20 @@
 import React from 'react';
+import styled from 'styled-components';
 import { useSpotifyPlaylist } from './spotify';
-import { Track } from './Track';
+import { PlaylistTable } from './PlaylistTable';
+
+const Container = styled.div`
+	margin: 1rem;
+`;
+const Title = styled.h2``;
 
 export const Playlist = ({ spotify, playlistId }) => {
 	const playlist = useSpotifyPlaylist(spotify, playlistId);
 	if (!playlist.name) return false;
-	console.log(playlist);
 	return (
-		<div className="playlist">
-			<div className="playlist-name">{playlist.name}</div>
-			<div className="playlist-tracks">
-				{playlist.tracks.items.map(({ track }) => (
-					<Track key={track.id} track={track} />
-				))}
-			</div>
-		</div>
+		<Container>
+			<Title>{playlist.name}</Title>
+			<PlaylistTable tracks={playlist.tracks.items} />
+		</Container>
 	);
 };
