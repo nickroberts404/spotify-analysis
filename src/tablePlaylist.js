@@ -1,12 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
 import ReactTable from 'react-table';
-import { TrackItem } from './TrackItem';
 import 'react-table/react-table.css';
-
-const Table = styled.table`
-	margin: 1rem;
-`;
 
 export const PlaylistTable = ({ tracks }) => {
 	const columns = [
@@ -32,7 +26,15 @@ export const PlaylistTable = ({ tracks }) => {
 			accessor: (t) => pitchClass[t.track.key] + scale[t.track.mode],
 		},
 	];
-	return <ReactTable data={tracks} columns={columns} />;
+	return (
+		<ReactTable
+			data={tracks}
+			columns={columns}
+			defaultPageSize={100}
+			minRows={10}
+			showPagination={tracks.length > 100}
+		/>
+	);
 };
 
 const msToTime = (ms) => {

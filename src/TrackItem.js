@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 export const TrackItem = ({ track }) => {
-	console.log(track);
 	return (
 		<Row>
 			<Name>{track.name}</Name>
